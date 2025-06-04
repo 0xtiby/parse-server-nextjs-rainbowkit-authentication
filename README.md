@@ -78,7 +78,7 @@ interface RainbowKitSiweNextAuthProviderProps {
   enabled?: boolean; // Enable/disable the auth provider
   getSiweMessageOptions?: GetSiweMessageOptions; // Custom SIWE message options
   children: ReactNode;
-  shouldRedirectAfterAuth?: boolean; // Auto-redirect after successful auth
+  shouldRedirect?: boolean; // Auto-redirect after successful auth
   redirectUrl?: string; // Redirect URL (default: "/")
 }
 ```
@@ -102,7 +102,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <ParseNextAuthRainbowKitAuthProvider
         enabled={true}
         getSiweMessageOptions={getSiweMessageOptions}
-        shouldRedirectAfterAuth={true}
+        shouldRedirect={true}
         redirectUrl="/dashboard"
       >
         <RainbowKitProvider>{children}</RainbowKitProvider>
@@ -123,7 +123,7 @@ The main authentication provider component that bridges RainbowKit SIWE authenti
 - `enabled?: boolean` - Enable or disable the authentication provider (default: `true`)
 - `getSiweMessageOptions?: () => ConfigurableMessageOptions` - Function to provide custom SIWE message options
 - `children: ReactNode` - Child components to render
-- `shouldRedirectAfterAuth?: boolean` - Whether to redirect after successful authentication (default: `false`)
+- `shouldRedirect?: boolean` - Whether to redirect after successful authentication (default: `false`)
 - `redirectUrl?: string` - URL to redirect to after authentication (default: `"/"`)
 
 #### Features
