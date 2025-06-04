@@ -1,0 +1,62 @@
+{
+  "name": "parse-server-nextjs-rainbowkit-authentication",
+  "version": "1.3.0",
+  "description": "RainbowKit authentication provider for parse-server-nextjs package",
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup ./src",
+    "setup:branch-protection": "./scripts/setup-branch-protection.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xtiby/parse-server-nextjs-rainbowkit-authentication.git"
+  },
+  "keywords": [
+    "parse-server",
+    "nextjs",
+    "rainbowkit",
+    "web3",
+    "authentication",
+    "siwe"
+  ],
+  "author": "0xtiby <https://github.com/0xtiby>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/0xtiby/parse-server-nextjs-rainbowkit-authentication/issues"
+  },
+  "homepage": "https://github.com/0xtiby/parse-server-nextjs-rainbowkit-authentication#readme",
+  "peerDependencies": {
+    "@rainbow-me/rainbowkit": ">=1.0.0",
+    "next": ">=13.0.0",
+    "parse-server-nextjs": ">=1.0.0",
+    "react": ">=18.0.0",
+    "viem": ">=1.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^11.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^9.2.6",
+    "@semantic-release/npm": "^11.0.2",
+    "@semantic-release/release-notes-generator": "^12.1.0",
+    "@types/react": "^18.0.0",
+    "semantic-release": "^23.0.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  }
+}
