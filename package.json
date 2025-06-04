@@ -1,6 +1,6 @@
 {
   "name": "parse-server-nextjs-rainbowkit-authentication",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "RainbowKit authentication provider for parse-server-nextjs package",
   "files": [
     "dist",
