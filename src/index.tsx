@@ -30,6 +30,7 @@ interface RainbowKitSiweNextAuthProviderProps {
   children: ReactNode;
   shouldRedirect?: boolean;
   redirectUrl?: string;
+  onAuthenticationComplete?: (session: any) => void;
 }
 
 interface SiweResponseData {
@@ -45,6 +46,7 @@ export function ParseNextAuthRainbowKitAuthProvider({
   getSiweMessageOptions,
   shouldRedirect = false,
   redirectUrl = "/",
+  onAuthenticationComplete,
 }: RainbowKitSiweNextAuthProviderProps) {
   const { challenge, login, logout } = useAuth();
   const { status: parseStatus, setSession } = useSession();
@@ -128,7 +130,10 @@ export function ParseNextAuthRainbowKitAuthProvider({
           if (response.success) {
             setSession((response as any).session as any);
             setRainbowKitStatus("authenticated");
-            if (shouldRedirect) {
+
+            if (onAuthenticationComplete) {
+              onAuthenticationComplete((response as any).session);
+            } else if (shouldRedirect) {
               router.push(redirectUrl);
             }
           } else {
@@ -138,7 +143,14 @@ export function ParseNextAuthRainbowKitAuthProvider({
           return response.success;
         },
       }),
-    [getSiweMessageOptions, rainbowKitStatus, parseStatus]
+    [
+      getSiweMessageOptions,
+      rainbowKitStatus,
+      parseStatus,
+      onAuthenticationComplete,
+      shouldRedirect,
+      redirectUrl,
+    ]
   );
 
   return (

@@ -80,6 +80,7 @@ interface RainbowKitSiweNextAuthProviderProps {
   children: ReactNode;
   shouldRedirect?: boolean; // Auto-redirect after successful auth
   redirectUrl?: string; // Redirect URL (default: "/")
+  onAuthenticationComplete?: (session: any) => void; // Custom callback after successful auth
 }
 ```
 
@@ -112,6 +113,97 @@ export function Providers({ children }: { children: React.ReactNode }) {
 }
 ```
 
+### Custom Authentication Handling
+
+Use `onAuthenticationComplete` callback for custom post-authentication logic:
+
+#### Basic Custom Redirect
+
+```typescript
+export function Providers({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+
+  return (
+    <SessionProvider>
+      <ParseNextAuthRainbowKitAuthProvider
+        onAuthenticationComplete={(session) => {
+          // Custom redirect logic
+          router.push("/welcome");
+        }}
+      >
+        <RainbowKitProvider>{children}</RainbowKitProvider>
+      </ParseNextAuthRainbowKitAuthProvider>
+    </SessionProvider>
+  );
+}
+```
+
+#### Handling Query Parameters (e.g., `?from`)
+
+```typescript
+export function Providers({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+
+  return (
+    <SessionProvider>
+      <ParseNextAuthRainbowKitAuthProvider
+        onAuthenticationComplete={(session) => {
+          // Get redirect URL from query params
+          const params = new URLSearchParams(window.location.search);
+          const from = params.get("from") || "/dashboard";
+          router.push(from);
+        }}
+      >
+        <RainbowKitProvider>{children}</RainbowKitProvider>
+      </ParseNextAuthRainbowKitAuthProvider>
+    </SessionProvider>
+  );
+}
+```
+
+#### Advanced Post-Authentication Logic
+
+```typescript
+export function Providers({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+
+  return (
+    <SessionProvider>
+      <ParseNextAuthRainbowKitAuthProvider
+        onAuthenticationComplete={(session) => {
+          // Analytics tracking
+          analytics.track("user_authenticated", {
+            address: session.user.authData.siwe.address,
+            timestamp: new Date().toISOString(),
+          });
+
+          // Custom redirect based on user state
+          const params = new URLSearchParams(window.location.search);
+          const from = params.get("from");
+          const isNewUser = session.user.createdAt === session.user.updatedAt;
+
+          if (from) {
+            router.push(from);
+          } else if (isNewUser) {
+            router.push("/onboarding");
+          } else {
+            router.push("/dashboard");
+          }
+        }}
+      >
+        <RainbowKitProvider>{children}</RainbowKitProvider>
+      </ParseNextAuthRainbowKitAuthProvider>
+    </SessionProvider>
+  );
+}
+```
+
+**Priority Logic:**
+
+1. If `onAuthenticationComplete` is provided → Uses the callback (no automatic redirect)
+2. Else if `shouldRedirect=true` → Automatic redirect to `redirectUrl`
+3. Else → No redirect
+
 ## API Reference
 
 ### ParseNextAuthRainbowKitAuthProvider
@@ -125,6 +217,7 @@ The main authentication provider component that bridges RainbowKit SIWE authenti
 - `children: ReactNode` - Child components to render
 - `shouldRedirect?: boolean` - Whether to redirect after successful authentication (default: `false`)
 - `redirectUrl?: string` - URL to redirect to after authentication (default: `"/"`)
+- `onAuthenticationComplete?: (session: any) => void` - Custom callback function called after successful authentication. When provided, takes priority over automatic redirect.
 
 #### Features
 
