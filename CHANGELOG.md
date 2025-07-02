@@ -1,5 +1,18 @@
 # Changelog
 
+## [v1.1.0](https://github.com/0xtiby/parse-server-nextjs-rainbowkit-authentication/releases/tag/v1.1.0) (2025-07-02)
+
+# [1.1.0](https://github.com/0xtiby/parse-server-nextjs-rainbowkit-authentication/compare/v1.0.1...v1.1.0) (2025-07-02)
+
+
+### Features
+
+* add onAuthenticationComplete callback for custom authentication handling ([56bc29f](https://github.com/0xtiby/parse-server-nextjs-rainbowkit-authentication/commit/56bc29f96def13d206e995f8559fd8e3e5088ade))
+
+
+
+
+
 ## [v1.0.1](https://github.com/0xtiby/parse-server-nextjs-rainbowkit-authentication/releases/tag/v1.0.1) (2025-06-04)
 
 ## [1.0.1](https://github.com/0xtiby/parse-server-nextjs-rainbowkit-authentication/compare/v1.0.0...v1.0.1) (2025-06-04)
